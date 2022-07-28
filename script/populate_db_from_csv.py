@@ -13,8 +13,8 @@ Image = Tuple[int, str, int]
 Category = List[Tuple[int, str]]
 # id of an image, id of a Category (junction table for many-to-many relationship)
 ImageCategory = List[Tuple[int, int]]
-# structure of the dict to pas to insert_data() function
-DataFromCsv = Dict[
+# structure of the dict to pass into insert_data() function
+DataFromCSV = Dict[
     Literal[
         "images",
         "categories",
@@ -24,7 +24,7 @@ DataFromCsv = Dict[
 ]
 
 
-def get_data_from_csv(csv_file_path: str) -> DataFromCsv:
+def get_data_from_csv(csv_file_path: str) -> DataFromCSV:
     with open(csv_file_path, "r") as f:
         file_content = f.read()
     parsed_file_content = [row.split(",") for row in file_content.split("\n") if row]
@@ -48,8 +48,8 @@ def get_data_from_csv(csv_file_path: str) -> DataFromCsv:
     }
 
 
-async def insert_data(data_from_csv: DataFromCsv):
-    async with aiosqlite.connect(str(path_to_db)) as db:
+async def insert_data(data_from_csv: DataFromCSV):
+    async with aiosqlite.connect(path_to_db) as db:
         await db.executemany(
             "INSERT INTO image ('id', 'url', 'needed_amount_of_shows') values ($1, $2, $3)",
             data_from_csv["images"],
