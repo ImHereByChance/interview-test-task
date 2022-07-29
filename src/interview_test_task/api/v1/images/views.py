@@ -15,9 +15,7 @@ image_router = APIRouter(prefix="/api/v1/images")
     response_model=Image,
 )
 async def get_image_by_category(
-    category: List[str] = Query(
-        default=[],
-    )
+    category: List[str] = Query(default=[]),
 ) -> Union[Image, None]:
     if len(category) > 10:
         raise HTTPException(

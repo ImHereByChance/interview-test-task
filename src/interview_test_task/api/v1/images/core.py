@@ -15,7 +15,7 @@ async def get_image_from_db(categories: List[str]) -> Union[Image, None]:
     image_by_category_query = f"""
         SELECT i.*, c.name
         FROM image i
-        JOIN image_category ic ON i.id = ic.image_id 
+        JOIN image_category ic ON i.id = ic.image_id
         JOIN category c ON ic.category_id = c.id
         WHERE c.name IN ({placeholders}) AND i.needed_amount_of_shows > 0
         ORDER BY random()
@@ -24,7 +24,7 @@ async def get_image_from_db(categories: List[str]) -> Union[Image, None]:
     random_image_query = """
         SELECT i.*, c.name
         FROM image i
-        JOIN image_category ic ON i.id = ic.image_id 
+        JOIN image_category ic ON i.id = ic.image_id
         JOIN category c ON ic.category_id = c.id
         WHERE i.needed_amount_of_shows > 0
         ORDER BY random()
